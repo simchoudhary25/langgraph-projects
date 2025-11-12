@@ -62,13 +62,13 @@ test:
 	if [ "$(NO_DOCKER)" = "false" ]; then \
 		make start-services &&\
 		make start-dev-server &&\
-		uv run pytest $(TEST); \
+		PYTHONPATH=../checkpoint:$$PYTHONPATH uv run pytest $(TEST); \
 		EXIT_CODE=$$?; \
 		make stop-services; \
 		make stop-dev-server; \
 		exit $$EXIT_CODE; \
 	else \
-		NO_DOCKER=true uv run pytest $(TEST) ; \
+		NO_DOCKER=true PYTHONPATH=../checkpoint:../checkpoint-sqlite:../checkpoint-postgres:../prebuilt:$$PYTHONPATH uv run pytest $(TEST) ; \
 		EXIT_CODE=$$?; \
 		exit $$EXIT_CODE; \
 	fi

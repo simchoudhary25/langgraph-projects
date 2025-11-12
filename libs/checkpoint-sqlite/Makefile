@@ -7,7 +7,7 @@
 TEST ?= .
 
 test:
-	uv run pytest $(TEST)
+	PYTHONPATH=../checkpoint:$$PYTHONPATH uv run pytest $(TEST)
 
 test_watch:
 	uv run ptw $(TEST)
